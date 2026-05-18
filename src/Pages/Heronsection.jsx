@@ -241,7 +241,7 @@ const HeroSection = () => {
                 className="text-white font-medium"
                 style={{ borderBottom: "1px solid rgba(0,149,255,0.45)", paddingBottom: 1 }}
               >
-                Architect
+                Frontend Developer
               </span>{" "}
               dedicated to building high-performance, user-centric web applications.
             </motion.p>

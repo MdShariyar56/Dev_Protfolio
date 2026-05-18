@@ -1,71 +1,51 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Swal from "sweetalert2";
 import emailjs from "@emailjs/browser";
 import { Mail, MapPin, Phone, ArrowRight, Send } from "lucide-react";
 
 /* ─────────────────────────────────────────────
-   PARTICLE CANVAS  (same as HeroSection)
+   LIGHTWEIGHT PARTICLES
+   ✅ GPU-only (CSS transform/opacity)
+   ✅ No canvas, no O(n²) loop
+   ✅ useMemo — generated once, never re-runs
 ───────────────────────────────────────────── */
-const ParticlesBg = () => {
-  const canvasRef = useRef(null);
+const BgParticles = () => {
+  const dots = useMemo(
+    () =>
+      Array.from({ length: 20 }, (_, i) => ({
+        id:    i,
+        x:     Math.random() * 100,
+        y:     Math.random() * 100,
+        size:  Math.random() > 0.5 ? 2.5 : 1.5,
+        dur:   5 + Math.random() * 6,
+        delay: Math.random() * 6,
+        dx:    (Math.random() - 0.5) * 30,
+        dy:    (Math.random() - 0.5) * 30,
+      })),
+    []
+  );
 
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    const ctx    = canvas.getContext("2d");
-    let raf;
-
-    const resize = () => {
-      canvas.width  = canvas.offsetWidth;
-      canvas.height = canvas.offsetHeight;
-    };
-    resize();
-    window.addEventListener("resize", resize);
-
-    const dots = Array.from({ length: 48 }, () => ({
-      x:  Math.random() * canvas.width,
-      y:  Math.random() * canvas.height,
-      r:  Math.random() * 1.3 + 0.3,
-      vx: (Math.random() - 0.5) * 0.25,
-      vy: (Math.random() - 0.5) * 0.25,
-      a:  Math.random() * Math.PI * 2,
-    }));
-
-    const draw = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      dots.forEach((d) => {
-        d.x += d.vx; d.y += d.vy; d.a += 0.008;
-        if (d.x < 0) d.x = canvas.width;
-        if (d.x > canvas.width)  d.x = 0;
-        if (d.y < 0) d.y = canvas.height;
-        if (d.y > canvas.height) d.y = 0;
-        ctx.beginPath();
-        ctx.arc(d.x, d.y, d.r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(0,149,255,${0.1 + 0.18 * Math.abs(Math.sin(d.a))})`;
-        ctx.fill();
-      });
-      for (let i = 0; i < dots.length; i++) {
-        for (let j = i + 1; j < dots.length; j++) {
-          const dx   = dots[i].x - dots[j].x;
-          const dy   = dots[i].y - dots[j].y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < 90) {
-            ctx.beginPath();
-            ctx.moveTo(dots[i].x, dots[i].y);
-            ctx.lineTo(dots[j].x, dots[j].y);
-            ctx.strokeStyle = `rgba(0,149,255,${0.06 * (1 - dist / 90)})`;
-            ctx.lineWidth   = 0.5;
-            ctx.stroke();
-          }
-        }
-      }
-      raf = requestAnimationFrame(draw);
-    };
-    draw();
-    return () => { cancelAnimationFrame(raf); window.removeEventListener("resize", resize); };
-  }, []);
-
-  return <canvas ref={canvasRef} className="pointer-events-none absolute inset-0 h-full w-full" />;
+  return (
+    <div className="pointer-events-none absolute inset-0 overflow-hidden">
+      {dots.map((d) => (
+        <motion.span
+          key={d.id}
+          className="absolute rounded-full"
+          style={{
+            width:      d.size,
+            height:     d.size,
+            left:       `${d.x}%`,
+            top:        `${d.y}%`,
+            background: "#0095FF",
+            boxShadow:  d.size > 2 ? "0 0 5px rgba(0,149,255,0.5)" : "none",
+          }}
+          animate={{ opacity: [0.08, 0.5, 0.08], x: [0, d.dx, 0], y: [0, d.dy, 0] }}
+          transition={{ duration: d.dur, delay: d.delay, repeat: Infinity, ease: "easeInOut" }}
+        />
+      ))}
+    </div>
+  );
 };
 
 /* ─────────────────────────────────────────────
@@ -117,17 +97,14 @@ const InfoCard = ({ icon: Icon, label, value, delay }) => (
     className="group flex cursor-default items-center gap-4"
   >
     <motion.div
-      className="relative flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl"
-      style={{
-        background: "rgba(0,149,255,0.08)",
-        border: "1px solid rgba(0,149,255,0.2)",
-        transition: "all 0.3s ease",
-      }}
+      className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl"
+      style={{ background: "rgba(0,149,255,0.08)", border: "1px solid rgba(0,149,255,0.2)" }}
       whileHover={{
         background: "rgba(0,149,255,0.18)",
-        boxShadow: "0 0 20px rgba(0,149,255,0.35)",
+        boxShadow: "0 0 20px rgba(0,149,255,0.32)",
         borderColor: "rgba(0,149,255,0.55)",
       }}
+      transition={{ duration: 0.25 }}
     >
       <Icon size={18} className="text-[#0095FF]" />
     </motion.div>
@@ -151,7 +128,8 @@ const ContactSection = () => {
   });
   const [sending, setSending] = useState(false);
 
-  const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
+  const handleChange = (e) =>
+    setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -207,10 +185,6 @@ const ContactSection = () => {
           0%   { background-position: 0%   center }
           100% { background-position: 200% center }
         }
-        @keyframes grid-scroll {
-          0%   { background-position: 0 0 }
-          100% { background-position: 28px 28px }
-        }
         .contact-shimmer-heading {
           background: linear-gradient(135deg,#00aaff 0%,#0095FF 35%,#60a5fa 65%,#00ccff 100%);
           background-size: 200% auto;
@@ -225,28 +199,27 @@ const ContactSection = () => {
         className="relative flex min-h-screen items-center justify-center overflow-hidden px-4 py-20"
         style={{ background: "#060c18" }}
       >
-        {/* ── Particle canvas ── */}
-        <ParticlesBg />
+        {/* ✅ lightweight CSS particles — no canvas */}
+        <BgParticles />
 
-        {/* ── Moving dot grid ── */}
+        {/* ✅ static dot grid — no animation, zero CPU */}
         <div
           className="pointer-events-none absolute inset-0"
           style={{
             backgroundImage:
-              "radial-gradient(circle, rgba(0,149,255,0.06) 1px, transparent 1px)",
+              "radial-gradient(circle, rgba(0,149,255,0.055) 1px, transparent 1px)",
             backgroundSize: "28px 28px",
-            animation: "grid-scroll 8s linear infinite",
           }}
         />
 
-        {/* ── Ambient glows (matching HeroSection) ── */}
+        {/* ✅ ambient glows — GPU blur, 2 elements only */}
         <motion.div
           className="pointer-events-none absolute -left-24 -top-24 h-96 w-96 rounded-full"
           style={{
-            background: "radial-gradient(circle, rgba(0,80,200,0.2) 0%, transparent 70%)",
+            background: "radial-gradient(circle, rgba(0,80,200,0.22) 0%, transparent 70%)",
             filter: "blur(60px)",
           }}
-          animate={{ scale: [1, 1.08, 1], opacity: [0.4, 0.7, 0.4] }}
+          animate={{ scale: [1, 1.08, 1], opacity: [0.35, 0.6, 0.35] }}
           transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
         />
         <motion.div
@@ -255,11 +228,14 @@ const ContactSection = () => {
             background: "radial-gradient(circle, rgba(100,50,200,0.15) 0%, transparent 70%)",
             filter: "blur(80px)",
           }}
-          animate={{ scale: [1, 1.1, 1], opacity: [0.3, 0.55, 0.3] }}
+          animate={{ scale: [1, 1.1, 1], opacity: [0.25, 0.48, 0.25] }}
           transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 2 }}
         />
 
-        {/* ── Glass card ── */}
+        {/* ════════ GLASS CARD ════════
+            ✅ backdropFilter REMOVED — ওটাই ছিল সবচেয়ে বড় কারণ
+            ✅ solid dark background দিয়ে replace — visually same
+        ══════════════════════════════ */}
         <motion.div
           initial={{ opacity: 0, y: 48 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -267,12 +243,10 @@ const ContactSection = () => {
           viewport={{ once: true }}
           className="relative z-10 w-full max-w-6xl overflow-hidden rounded-3xl"
           style={{
-            background:
-              "linear-gradient(145deg, rgba(255,255,255,0.045) 0%, rgba(255,255,255,0.01) 100%)",
+            /* ✅ solid — no backdropFilter */
+            background: "linear-gradient(145deg, #0a1628 0%, #071020 100%)",
             border: "1px solid rgba(255,255,255,0.07)",
-            boxShadow:
-              "0 40px 100px rgba(0,0,0,0.65), inset 0 1px 0 rgba(255,255,255,0.04)",
-            backdropFilter: "blur(24px)",
+            boxShadow: "0 32px 80px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.04)",
           }}
         >
           {/* top gradient line */}
@@ -288,7 +262,7 @@ const ContactSection = () => {
           <div
             className="pointer-events-none absolute -left-16 -top-16 h-64 w-64 rounded-full"
             style={{
-              background: "radial-gradient(circle, rgba(0,149,255,0.15) 0%, transparent 70%)",
+              background: "radial-gradient(circle, rgba(0,149,255,0.12) 0%, transparent 70%)",
               filter: "blur(30px)",
             }}
           />
@@ -348,7 +322,7 @@ const ContactSection = () => {
               initial="hidden"
               whileInView="show"
               viewport={{ once: true }}
-              className="z-10 flex flex-col justify-center"
+              className="z-10 flex flex-col justify-center "
             >
               <motion.p
                 variants={item}
@@ -358,13 +332,13 @@ const ContactSection = () => {
                 ✦ Get In Touch
               </motion.p>
 
-              <form onSubmit={handleSubmit} className="space-y-4">
+              <form onSubmit={handleSubmit} className="space-y-6">
                 <motion.div variants={item} className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                   <Field name="name"  value={formData.name}  onChange={handleChange} placeholder="Your Name"    required />
                   <Field name="phone" value={formData.phone} onChange={handleChange} placeholder="Phone Number" />
                 </motion.div>
 
-                <motion.div variants={item} className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                <motion.div variants={item} className="grid grid-cols-1 gap-4 sm:grid-cols-2 ">
                   <Field type="email" name="email"   value={formData.email}   onChange={handleChange} placeholder="Your Email"   required />
                   <Field              name="subject" value={formData.subject} onChange={handleChange} placeholder="Subject" />
                 </motion.div>
@@ -377,7 +351,8 @@ const ContactSection = () => {
                     onChange={handleChange}
                     placeholder="Your Message"
                     rows={5}
-                    className="resize-none"
+                    className="resize-none "
+                    
                   />
                 </motion.div>
 
@@ -397,7 +372,6 @@ const ContactSection = () => {
                       boxShadow: "0 4px 28px rgba(0,149,255,0.4), inset 0 1px 0 rgba(255,255,255,0.18)",
                     }}
                   >
-                    {/* shimmer sweep */}
                     <motion.span
                       className="pointer-events-none absolute inset-0"
                       style={{
