@@ -1,5 +1,10 @@
-import React from "react";
-import { motion, useMotionTemplate, useMotionValue, animate } from "framer-motion";
+import { useMemo } from "react";
+import {
+  motion,
+  useMotionTemplate,
+  useMotionValue,
+  animate,
+} from "framer-motion";
 
 const educationData = [
   {
@@ -8,106 +13,160 @@ const educationData = [
     year: "2025 - Running (Weekend)",
     image: "https://i.ibb.co/kVXfZmpw/Campus-Image.png",
     link: "https://nub.ac.bd/",
+    tag: "Ongoing",
+    tagColor: "#0095FF",
   },
   {
     degree: "Diploma in Computer Science & Technology",
     institute: "Brahmanbariya Polytechnic Institute [BBPI]",
-    year: "2021 - 2022 | Passed",
-    details: "CGPA: 3.40 out of 4.00",
-    image: "https://i.ibb.co/WNqvp5yP/475787058-655704360318836-604595313590966038-n.png",
+    year: "2021 - 2022",
+    details: "CGPA: 3.40 / 4.00",
+    image:
+      "https://i.ibb.co/WNqvp5yP/475787058-655704360318836-604595313590966038-n.png",
     link: "https://www.facebook.com/BBPIT",
+    tag: "Passed",
+    tagColor: "#4ade80",
   },
   {
     degree: "Secondary School Certificate (Science)",
-    institute: "Dhap Satgara B.M. Model kamil Madrasha [DSM]",
-    year: "2015 - 2020 | Passed",
-    details: "GPA: 4.69 out of 5.00",
+    institute: "Dhap Satgara B.M. Model Kamil Madrasha [DSM]",
+    year: "2015 - 2020",
+    details: "GPA: 4.69 / 5.00",
     image: "https://i.ibb.co/mr5qwFjm/image.jpg",
     link: "https://dsmkmr.edu.bd/",
+    tag: "Passed",
+    tagColor: "#4ade80",
   },
 ];
 
-/* ─────────────────────────────────────────────
-   BACKGROUND DOTS
-───────────────────────────────────────────── */
-const DotGrid = () => (
-  <div
-    className="pointer-events-none absolute inset-0 opacity-40"
-    style={{
-      backgroundImage:
-        "radial-gradient(circle, rgba(0,149,255,0.05) 1px, transparent 1px)",
-      backgroundSize: "24px 24px",
-    }}
-  />
-);
+const Particles = () => {
+  const dots = useMemo(
+    () =>
+      Array.from({ length: 18 }, (_, i) => ({
+        id: i,
+        x: `${Math.random() * 100}%`,
+        y: `${Math.random() * 100}%`,
+        size: Math.random() > 0.5 ? 2.5 : 1.5,
+        dur: 5 + Math.random() * 6,
+        delay: Math.random() * 5,
+        dx: (Math.random() - 0.5) * 26,
+        dy: (Math.random() - 0.5) * 26,
+      })),
+    [],
+  );
 
-/* ─────────────────────────────────────────────
-   PREMIUM EDUCATION CARD COMPONENT
-───────────────────────────────────────────── */
+  return (
+    <div className="pointer-events-none absolute inset-0 overflow-hidden">
+      {dots.map((d) => (
+        <motion.div
+          key={d.id}
+          className="absolute rounded-full"
+          style={{
+            width: d.size,
+            height: d.size,
+            left: d.x,
+            top: d.y,
+            background: "#0095FF",
+          }}
+          animate={{
+            opacity: [0.06, 0.42, 0.06],
+            x: [0, d.dx, 0],
+            y: [0, d.dy, 0],
+          }}
+          transition={{
+            duration: d.dur,
+            delay: d.delay,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+      ))}
+    </div>
+  );
+};
+
 const EducationCard = ({ edu, index }) => {
   const angle = useMotionValue(0);
+  const borderStyle = useMotionTemplate`conic-gradient(from ${angle}deg,#0095FF 0%,#3b82f6 25%,#a78bfa 50%,#0095FF 75%)`;
 
-  // Smooth dynamic conic gradient for border outline
-  const borderGradient = useMotionTemplate`conic-gradient(from ${angle}deg, #0095FF, #3b82f6, #86efac, #facc15, #0095FF)`;
-
-  const handleHoverStart = () => {
+  const onHoverStart = () => {
     angle.set(0);
-    animate(angle, 360, {
-      duration: 3,
-      repeat: Infinity,
-      ease: "linear",
-    });
+    animate(angle, 360, { duration: 2.8, repeat: Infinity, ease: "linear" });
   };
-
-  const handleHoverEnd = () => {
-    animate(angle, 0, { duration: 0.3 });
-  };
+  const onHoverEnd = () => animate(angle, 0, { duration: 0.4 });
 
   return (
     <motion.div
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.7, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
-      whileHover={{ y: -4 }}
-      onHoverStart={handleHoverStart}
-      onHoverEnd={handleHoverEnd}
-      className="group relative p-[1.5px] rounded-[24px] overflow-hidden flex items-center justify-center cursor-pointer 
-                 shadow-[0_10px_30px_rgba(0,0,0,0.3)] bg-white/5 border border-white/5 
-                 transition-all duration-300 hover:border-transparent hover:bg-transparent"
+      viewport={{ once: true, amount: 0.15 }}
+      transition={{
+        duration: 0.65,
+        delay: index * 0.12,
+        ease: [0.22, 1, 0.36, 1],
+      }}
+      whileHover={{ y: -5 }}
+      onHoverStart={onHoverStart}
+      onHoverEnd={onHoverEnd}
+      className="group relative rounded-3xl p-[1.5px] cursor-pointer"
+      style={{ background: "rgba(255,255,255,0.06)" }}
     >
-      {/* ⚡ THE ROTATING GRADIENT BORDER LINE ON HOVER */}
       <motion.div
-        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
-        style={{ background: borderGradient }}
+        className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+        style={{ background: borderStyle, filter: "blur(1px)" }}
       />
 
-      {/* 💼 Inner Glass Body */}
-      <div className="relative w-full z-10 bg-[#070d19]/95 backdrop-blur-md rounded-[23px] p-6 
-                      flex flex-col md:flex-row items-center gap-6 transition-all duration-300">
-        
-        {/* IMAGE / CAMPUS WRAPPER */}
+      <div
+        className="relative z-10 rounded-[22px] overflow-hidden flex flex-col items-center pt-6 md:pt-0  md:flex-row gap-0"
+        style={{
+          background: "linear-gradient(145deg,#0a1628 0%,#071020 100%)",
+          boxShadow: "0 8px 40px rgba(0,0,0,0.45)",
+        }}
+      >
         <a
           href={edu.link}
           target="_blank"
           rel="noopener noreferrer"
-          className="shrink-0 overflow-hidden rounded-xl border border-white/5 w-full md:w-64 h-40 block relative group/img"
+          className="shrink-0 overflow-hidden block relative"
+          style={{ width: "100%", maxWidth: 260, height: 180 }}
         >
           <motion.img
             src={edu.image}
             alt={edu.institute}
-            className="w-full h-full object-cover transition-transform duration-500 group-hover/img:scale-110 filter brightness-90 group-hover/img:brightness-100"
+            className="w-full h-full object-cover rounded-xl md:rounded-none"
+            whileHover={{ scale: 1.07 }}
+            transition={{ duration: 0.45 }}
+            style={{ filter: "brightness(0.82)" }}
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-60 group-hover/img:opacity-20 transition-opacity" />
         </a>
 
-        {/* CONTENT INFO */}
-        <div className="flex-1 text-center md:text-left flex flex-col justify-center">
-          <span className="text-[10px] font-extrabold text-[#0095FF] tracking-widest uppercase mb-1.5 block">
-            {edu.year}
-          </span>
-          
-          <h3 className="text-xl font-black text-white tracking-tight mb-1 group-hover:text-[#0095FF] transition-colors duration-300">
+        <div className="flex-1 flex flex-col justify-center  px-7 py-6 gap-3">
+          <div className="flex items-center  gap-3 flex-wrap">
+            <span
+              className="text-[10px] font-extrabold uppercase tracking-[0.2em]"
+              style={{ color: "#0095FF" }}
+            >
+              {edu.year}
+            </span>
+            <span
+              className="text-[10px] font-bold uppercase tracking-widest rounded-full px-2.5 py-0.5"
+              style={{
+                background: `${edu.tagColor}18`,
+                border: `1px solid ${edu.tagColor}35`,
+                color: edu.tagColor,
+              }}
+            >
+              {edu.tag}
+            </span>
+          </div>
+
+          <h3
+            className="font-extrabold text-white leading-tight transition-colors duration-300 group-hover:text-[#60a5fa]"
+            style={{
+              fontSize: "clamp(15px, 2vw, 19px)",
+              letterSpacing: "-0.02em",
+            }}
+          >
             {edu.degree}
           </h3>
 
@@ -115,22 +174,36 @@ const EducationCard = ({ edu, index }) => {
             href={edu.link}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-gray-400 hover:text-white font-medium text-sm md:text-base inline-block hover:underline mb-3 self-center md:self-start"
+            className="text-sm font-medium transition-colors duration-200 hover:text-white w-fit"
+            style={{ color: "#4a6070", textDecoration: "none" }}
           >
-            {edu.institute}
+            🎓 {edu.institute}
           </a>
 
           {edu.details && (
-            <div className="inline-flex items-center justify-center md:justify-start gap-2 bg-white/[0.02] border border-white/5 rounded-lg px-3 py-1 w-fit self-center md:self-start">
-              <p className="text-xs text-gray-400 font-medium">
-                {edu.details.split(/(\d+\.\d+)/).map((part, idx) =>
-                  /\d+\.\d+/.test(part) ? (
-                    <span key={idx} className="font-bold text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-green-400">{part}</span>
-                  ) : (
-                    <span key={idx}>{part}</span>
-                  )
-                )}
-              </p>
+            <div
+              className="inline-flex items-center gap-2 rounded-xl px-3 py-1.5 w-fit"
+              style={{
+                background: "rgba(74,222,128,0.07)",
+                border: "1px solid rgba(74,222,128,0.2)",
+              }}
+            >
+              <motion.div
+                className="h-1.5 w-1.5 rounded-full flex-shrink-0"
+                style={{ background: "#4ade80" }}
+                animate={{
+                  opacity: [1, 0.3, 1],
+                  boxShadow: [
+                    "0 0 4px #4ade80",
+                    "0 0 8px #4ade80",
+                    "0 0 4px #4ade80",
+                  ],
+                }}
+                transition={{ duration: 2, repeat: Infinity }}
+              />
+              <span className="text-xs font-bold" style={{ color: "#4ade80" }}>
+                {edu.details}
+              </span>
             </div>
           )}
         </div>
@@ -139,64 +212,145 @@ const EducationCard = ({ edu, index }) => {
   );
 };
 
-/* ─────────────────────────────────────────────
-   MAIN COMPONENT
-───────────────────────────────────────────── */
-const Education = () => {
-  return (
-    <section
-      id="education"
-      className="bg-[#030712] relative min-h-screen py-24 px-6 flex flex-col items-center 
-                 scroll-mt-20 overflow-hidden"
-    >
-      <DotGrid />
+const Education = () => (
+  <section
+    id="education"
+    className="relative min-h-screen overflow-hidden px-4 py-24 flex flex-col items-center scroll-mt-20"
+    style={{ background: "#060c18" }}
+  >
+    <Particles />
 
-      {/* TOP GLOW LINE */}
-      <div className="absolute left-0 right-0 top-0 h-px bg-gradient-to-r from-transparent via-[#0095FF]/20 to-transparent" />
+    <div
+      className="pointer-events-none absolute inset-0"
+      style={{
+        backgroundImage:
+          "radial-gradient(circle, rgba(0,149,255,0.05) 1px, transparent 1px)",
+        backgroundSize: "28px 28px",
+      }}
+    />
 
-      {/* 🔹 Content Wrap */}
-      <div className="relative z-10 w-full max-w-5xl mx-auto">
-        
-        {/* HEADER SECTION */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="mb-20 text-center"
+    <motion.div
+      className="pointer-events-none absolute -left-24 top-10 h-96 w-96 rounded-full"
+      style={{
+        background:
+          "radial-gradient(circle,rgba(0,80,200,0.2) 0%,transparent 70%)",
+        filter: "blur(60px)",
+      }}
+      animate={{ scale: [1, 1.1, 1], opacity: [0.3, 0.55, 0.3] }}
+      transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
+    />
+
+    <motion.div
+      className="pointer-events-none absolute -right-20 bottom-10 h-80 w-80 rounded-full"
+      style={{
+        background:
+          "radial-gradient(circle,rgba(100,50,200,0.14) 0%,transparent 70%)",
+        filter: "blur(80px)",
+      }}
+      animate={{ scale: [1, 1.08, 1], opacity: [0.2, 0.42, 0.2] }}
+      transition={{
+        duration: 9,
+        repeat: Infinity,
+        ease: "easeInOut",
+        delay: 2,
+      }}
+    />
+
+    <div
+      className="absolute inset-x-0 top-0 h-px pointer-events-none"
+      style={{
+        background:
+          "linear-gradient(90deg,transparent 5%,rgba(0,149,255,0.55) 40%,rgba(139,92,246,0.4) 70%,transparent 95%)",
+      }}
+    />
+
+    <div className="relative z-10 w-full max-w-4xl mx-auto">
+      <motion.div
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        className="mb-16 text-center"
+      >
+        <div
+          className="mb-5 inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-[10px] font-extrabold uppercase tracking-[0.22em]"
+          style={{
+            background: "rgba(0,149,255,0.08)",
+            border: "1px solid rgba(0,149,255,0.25)",
+            color: "#0095FF",
+          }}
         >
-          {/* TOP MINI CHIP */}
-          <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/5 bg-white/[0.02] px-4 py-1.5 backdrop-blur-md">
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#0095FF] opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#0095FF]"></span>
-            </span>
-            <span className="text-[10px] font-extrabold uppercase tracking-[0.25em] text-[#0095FF]">
-              Education Journey
-            </span>
-          </div>
-
-          <h2 className="text-4xl font-black tracking-tight text-white md:text-6xl">
-            Academic <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#0095FF] to-blue-500">History</span>
-          </h2>
-          
-          <p className="mt-4 text-xs max-w-md mx-auto font-semibold uppercase tracking-[0.15em] text-[#4a6070] italic">
-            "Education is not the learning of facts, but the training of the mind to think."
-          </p>
-        </motion.div>
-
-        {/* Education List Stack */}
-        <div className="space-y-8 relative">
-          {/* Subtle Vertical Timeline Guide Line */}
-          <div className="absolute left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-[#0095FF]/10 via-transparent to-transparent hidden lg:block -translate-x-1/2 pointer-events-none" />
-
-          {educationData.map((edu, index) => (
-            <EducationCard key={index} edu={edu} index={index} />
-          ))}
+          <motion.div
+            className="h-1.5 w-1.5 rounded-full"
+            style={{ background: "#0095FF" }}
+            animate={{
+              opacity: [1, 0.2, 1],
+              boxShadow: [
+                "0 0 4px #0095FF",
+                "0 0 10px #0095FF",
+                "0 0 4px #0095FF",
+              ],
+            }}
+            transition={{ duration: 1.6, repeat: Infinity }}
+          />
+          Education Journey
         </div>
+
+        <h2
+          className="font-extrabold text-white"
+          style={{
+            fontSize: "clamp(36px, 5vw, 58px)",
+            letterSpacing: "-0.03em",
+            lineHeight: 1.08,
+          }}
+        >
+          Academic{" "}
+          <span
+            style={{
+              background:
+                "linear-gradient(135deg,#0095FF 0%,#60a5fa 50%,#a78bfa 100%)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              backgroundClip: "text",
+            }}
+          >
+            History
+          </span>
+        </h2>
+
+        <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="mt-4 text-xs font-medium italic"
+          style={{ color: "#2e4a60" }}
+        >
+          "Education is not the learning of facts, but the training of the mind
+          to think."
+        </motion.p>
+
+        <motion.div
+          className="mx-auto mt-6 h-px"
+          style={{
+            background:
+              "linear-gradient(90deg,transparent,rgba(0,149,255,0.4),rgba(139,92,246,0.3),transparent)",
+            maxWidth: 280,
+          }}
+          initial={{ scaleX: 0 }}
+          whileInView={{ scaleX: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.3 }}
+        />
+      </motion.div>
+
+      <div className="flex flex-col gap-6">
+        {educationData.map((edu, i) => (
+          <EducationCard key={i} edu={edu} index={i} />
+        ))}
       </div>
-    </section>
-  );
-};
+    </div>
+  </section>
+);
 
 export default Education;

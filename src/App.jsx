@@ -13,7 +13,7 @@ const App = () => {
     >
       <HeroSection></HeroSection>
       <About></About>
-      <SkillsData></SkillsData>
+      {/* <SkillsData></SkillsData> */}
       <Education></Education>
       <Contact></Contact>
       <Footer></Footer>
