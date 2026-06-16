@@ -196,6 +196,7 @@ const ContactSection = () => {
       `}</style>
 
       <section
+      id="contact"
         className="relative flex min-h-screen items-center justify-center overflow-hidden px-4 py-20"
         style={{ background: "#060c18" }}
       >

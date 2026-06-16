@@ -9,10 +9,10 @@ import {
 const educationData = [
   {
     degree: "B.Sc in Computer Science & Engineering",
-    institute: "Northern University Bangladesh [NUB]",
+    institute: "University of South Asia [USB]",
     year: "2025 - Running (Weekend)",
-    image: "https://i.ibb.co/kVXfZmpw/Campus-Image.png",
-    link: "https://nub.ac.bd/",
+    image: "https://imglink.cc/cdn/-dhdqgWueb.png",
+    link: "https://southasiauni.ac.bd/",
     tag: "Ongoing",
     tagColor: "#0095FF",
   },
