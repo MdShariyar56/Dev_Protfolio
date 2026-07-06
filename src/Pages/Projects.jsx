@@ -8,68 +8,68 @@ import { LuGithub } from "react-icons/lu";
 ───────────────────────────────────────────── */
 const projectsData = [
   {
-    title:       "E-Commerce Platform",
-    desc:        "Full-stack e-commerce with cart, payment gateway, admin dashboard and order tracking.",
-    image:       "https://images.unsplash.com/photo-1661956602116-aa6865609028?w=600&q=80",
-    tags:        ["React", "Next.js", "MongoDB"],
-    category:    "Next.js",
-    liveUrl:     "#",
-    githubUrl:   "#",
+    title:       "PurifyGPT – AI Text Humanizer",
+    desc:        "AI-powered text humanization platform that converts robotic AI-generated text into natural human-like writing.",
+    image:       "https://imglink.cc/cdn/YbDbMPoaZP.png",
+    tags:        ["React", "Tailwind CSS", "JavaScript"],
+    category:    "React",
+    liveUrl:     "https://purifygpt.com/",
+    githubUrl:   "https://github.com/MdShariyar56/NaturalWrite",
+    featured:    false,
+  },
+  {
+    title:       "CreatifyAI – AI Video Generator",
+    desc:        "AI-powered platform for generating videos from text or images with a modern responsive interface.",
+    image:       "https://imglink.cc/cdn/xnkwo9YoVv.png",
+    tags:        ["React", "Tailwind", "Framer"],
+    category:    "React",
+    liveUrl:     "https://aivideogen.aireshot.com/",
+    githubUrl:   "https://github.com/MdShariyar56/UpdateCreatifyAi",
+    featured:    false,
+  },
+  {
+    title:       "RentWheels – Vehicle Rental System",
+    desc:        "Modern vehicle rental platform for browsing, booking, and managing vehicles.",
+    image:       "https://imglink.cc/cdn/AQ0hQn9bzX.png",
+    tags:        ["React", "Tailwind CSS", "Firebase", "Node.js", "MongoDB"],
+    category:    "React",
+    liveUrl:     "https://rent-wheels-auth-4c421.web.app/",
+    githubUrl:   "https://github.com/MdShariyar56/Car-Client",
     featured:    true,
   },
   {
-    title:       "Portfolio Website",
-    desc:        "Animated personal portfolio with framer-motion, dark theme and EmailJS integration.",
-    image:       "https://images.unsplash.com/photo-1517180102446-f3ece451e9d8?w=600&q=80",
-    tags:        ["React", "Tailwind", "Framer"],
+    title:       "GameHub – Game Management System",
+    desc:        "Modern game management platform where users can browse and manage their favorite games.",
+    image:       "https://imglink.cc/cdn/lPtQlT6xYx.png",
+    tags:        ["Next.js", "Tailwind CSS", "Firebase"],
     category:    "React",
-    liveUrl:     "#",
-    githubUrl:   "#",
-    featured:    false,
+    liveUrl:     "https://game-hub-auth-e87bc.web.app/",
+    githubUrl:   "https://github.com/MdShariyar56/Game-Hub",
+    featured:    true,
   },
   {
-    title:       "Task Manager App",
-    desc:        "Kanban-style task manager with drag-and-drop, deadlines and real-time updates.",
-    image:       "https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=600&q=80",
-    tags:        ["React", "Firebase"],
-    category:    "React",
-    liveUrl:     "#",
-    githubUrl:   "#",
-    featured:    false,
-  },
-  {
-    title:       "Blog Platform",
-    desc:        "SEO-optimised blog with MDX, dark mode, category filter and comment system.",
-    image:       "https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=600&q=80",
-    tags:        ["Next.js", "Tailwind", "Prisma"],
-    category:    "Next.js",
-    liveUrl:     "#",
-    githubUrl:   "#",
-    featured:    false,
-  },
-  {
-    title:       "Weather Dashboard",
-    desc:        "Real-time weather app with 7-day forecast, map view and geolocation support.",
-    image:       "https://images.unsplash.com/photo-1504608524841-42584120d693?w=600&q=80",
-    tags:        ["JavaScript", "OpenWeather API"],
+    title:       "Taxi Kitchen – Digital Menu Web App",
+    desc:        "Taxi Kitchen – A responsive food ordering web app with a dynamic menu, recipe suggestions, and YouTube video integration on click for each dish.",
+    image:       "https://i.ibb.co/4n8D3XdN/Gemini-Generated-Image-eq6zqneq6zqneq6z.png",
+    tags:        ["JavaScript", "Tailwind CSS"],
     category:    "JavaScript",
-    liveUrl:     "#",
-    githubUrl:   "#",
+    liveUrl:     "https://texi-butger.vercel.app/",
+    githubUrl:   "https://github.com/MdShariyar56/Texi-Butger",
     featured:    false,
   },
   {
-    title:       "Chat Application",
-    desc:        "Real-time chat with Socket.io, JWT auth, rooms and file sharing.",
-    image:       "https://images.unsplash.com/photo-1611606063065-ee7946f0787a?w=600&q=80",
-    tags:        ["React", "Node.js", "Socket.io"],
+    title:       "Floka Studio – Creative UI/UX & Web Development Agency Website",
+    desc:        "Floka Studio – A modern UI/UX and web development agency website showcasing creative projects, services, and portfolio with a clean, responsive design.",
+    image:       "https://i.ibb.co/p6f6QHNf/Screenshot-2026-06-17-135701.png",
+    tags:        ["React", "Tailwind CSS", "JavaScript"],
     category:    "React",
-    liveUrl:     "#",
-    githubUrl:   "#",
+    liveUrl:     "https://floka-studio-five.vercel.app/",
+    githubUrl:   "https://github.com/MdShariyar56/Floka_Studio",
     featured:    false,
   },
 ];
 
-const FILTERS = ["All", "React", "Next.js", "JavaScript"];
+const FILTERS = ["All", "React", "JavaScript"];
 
 /* ─────────────────────────────────────────────
    PARTICLES
@@ -457,7 +457,7 @@ const Projects = () => {
           className="mt-14 flex justify-center"
         >
           <motion.a
-            href="https://github.com"
+            href="https://github.com/MdShariyar56"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-2.5 rounded-2xl px-8 py-3.5 text-sm font-bold"

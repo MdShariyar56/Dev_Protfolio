@@ -126,22 +126,9 @@ const Navbar = () => {
             whileTap={{ scale: 0.96 }}
             className="flex items-center gap-2.5 focus:outline-none"
           >
-            <div
-              className="flex h-8 w-8 items-center justify-center rounded-lg"
-              style={{
-                background:  "linear-gradient(135deg,#0095FF,#0044cc)",
-                boxShadow:   "0 4px 14px rgba(0,149,255,0.4)",
-              }}
-            >
-              <svg width="15" height="15" fill="white" viewBox="0 0 24 24">
-                <path d="M4 6h16v2H4zm4 5h12v2H8zm-4 5h16v2H4z" />
-              </svg>
-            </div>
-            <span
-              className="text-xl font-extrabold tracking-tight text-white"
-            >
-              Vir<span style={{ color: "#0095FF" }}>Tuo</span>
-            </span>
+            <img src="https://imglink.cc/cdn/MbSnkFegF3.png" alt="" 
+            className="w-12 h-12"
+            />
           </motion.button>
 
           {/* ── Desktop links ── */}

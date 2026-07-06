@@ -286,21 +286,10 @@ const Footer = () => {
               viewport={{ once: true }}
               className="space-y-6"
             >
-              <motion.div variants={colItem} className="flex items-center gap-2.5">
-                <div
-                  className="flex h-9 w-9 items-center justify-center rounded-xl"
-                  style={{
-                    background: "linear-gradient(135deg,#0095FF,#0044cc)",
-                    boxShadow: "0 4px 14px rgba(0,149,255,0.4)",
-                  }}
-                >
-                  <svg width="16" height="16" fill="white" viewBox="0 0 24 24">
-                    <path d="M4 6h16v2H4zm4 5h12v2H8zm-4 5h16v2H4z" />
-                  </svg>
-                </div>
-                <span className="text-2xl font-extrabold tracking-tight">
-                  Vir<span style={{ color: "#0095FF" }}>Tuo</span>
-                </span>
+              <motion.div variants={colItem} className="flex items-center ml:0 md:ml-10 gap-2.5">
+                <img src="https://imglink.cc/cdn/MbSnkFegF3.png"
+                 alt=""
+                 className="w-18 h-18" />
               </motion.div>
 
               <motion.p
