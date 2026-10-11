@@ -1,5 +1,11 @@
 import { useMemo, useState } from "react";
-import { motion, useMotionValue, useMotionTemplate, animate, AnimatePresence } from "framer-motion";
+import {
+  motion,
+  useMotionValue,
+  useMotionTemplate,
+  animate,
+  AnimatePresence,
+} from "framer-motion";
 import { ExternalLink, Code2, Layers } from "lucide-react";
 import { LuGithub } from "react-icons/lu";
 
@@ -8,64 +14,75 @@ import { LuGithub } from "react-icons/lu";
 ───────────────────────────────────────────── */
 const projectsData = [
   {
-    title:       "PurifyGPT – AI Text Humanizer",
-    desc:        "AI-powered text humanization platform that converts robotic AI-generated text into natural human-like writing.",
-    image:       "https://imglink.cc/cdn/YbDbMPoaZP.png",
-    tags:        ["React", "Tailwind CSS", "JavaScript"],
-    category:    "React",
-    liveUrl:     "https://purifygpt.com/",
-    githubUrl:   "https://github.com/MdShariyar56/NaturalWrite",
-    featured:    false,
+    title: "PurifyGPT – AI Text Humanizer",
+    desc: "AI-powered text humanization platform that converts robotic AI-generated text into natural human-like writing.",
+    image: "https://imglink.cc/cdn/YbDbMPoaZP.png",
+    tags: ["React", "Tailwind CSS", "JavaScript"],
+    category: "React",
+    liveUrl: "https://purifygpt.com/",
+    githubUrl: "https://github.com/MdShariyar56/NaturalWrite",
+    featured: false,
   },
   {
-    title:       "CreatifyAI – AI Video Generator",
-    desc:        "AI-powered platform for generating videos from text or images with a modern responsive interface.",
-    image:       "https://imglink.cc/cdn/xnkwo9YoVv.png",
-    tags:        ["React", "Tailwind", "Framer"],
-    category:    "React",
-    liveUrl:     "https://aivideogen.aireshot.com/",
-    githubUrl:   "https://github.com/MdShariyar56/UpdateCreatifyAi",
-    featured:    false,
+    title: "NoorPath – Islamic Platform",
+    desc: "Modern Islamic platform for Quran, Hadith, duas, and prayer times.",
+    image: "https://imglink.cc/cdn/6QlSUZagUD.png",
+    tags: ["Next.js", "React", "Tailwind CSS", "Firebase"],
+    category: "Next.js",
+    liveUrl: "https://noorpath-ten.vercel.app/",
+    githubUrl: "https://github.com/MdShariyar56/Noorpath",
+    featured: false,
   },
   {
-    title:       "RentWheels – Vehicle Rental System",
-    desc:        "Modern vehicle rental platform for browsing, booking, and managing vehicles.",
-    image:       "https://imglink.cc/cdn/AQ0hQn9bzX.png",
-    tags:        ["React", "Tailwind CSS", "Firebase", "Node.js", "MongoDB"],
-    category:    "React",
-    liveUrl:     "https://rent-wheels-auth-4c421.web.app/",
-    githubUrl:   "https://github.com/MdShariyar56/Car-Client",
-    featured:    true,
+    title: "CreatifyAI – AI Video Generator",
+    desc: "AI-powered platform for generating videos from text or images with a modern responsive interface.",
+    image: "https://imglink.cc/cdn/xnkwo9YoVv.png",
+    tags: ["React", "Tailwind", "Framer"],
+    category: "React",
+    liveUrl: "https://aivideogen.aireshot.com/",
+    githubUrl: "https://github.com/MdShariyar56/UpdateCreatifyAi",
+    featured: false,
   },
   {
-    title:       "GameHub – Game Management System",
-    desc:        "Modern game management platform where users can browse and manage their favorite games.",
-    image:       "https://imglink.cc/cdn/lPtQlT6xYx.png",
-    tags:        ["Next.js", "Tailwind CSS", "Firebase"],
-    category:    "React",
-    liveUrl:     "https://game-hub-auth-e87bc.web.app/",
-    githubUrl:   "https://github.com/MdShariyar56/Game-Hub",
-    featured:    true,
+    title: "RentWheels – Vehicle Rental System",
+    desc: "Modern vehicle rental platform for browsing, booking, and managing vehicles.",
+    image: "https://imglink.cc/cdn/AQ0hQn9bzX.png",
+    tags: ["React", "Tailwind CSS", "Firebase", "Node.js", "MongoDB"],
+    category: "React",
+    liveUrl: "https://rent-wheels-auth-4c421.web.app/",
+    githubUrl: "https://github.com/MdShariyar56/Car-Client",
+    featured: true,
   },
   {
-    title:       "Taxi Kitchen – Digital Menu Web App",
-    desc:        "Taxi Kitchen – A responsive food ordering web app with a dynamic menu, recipe suggestions, and YouTube video integration on click for each dish.",
-    image:       "https://i.ibb.co/4n8D3XdN/Gemini-Generated-Image-eq6zqneq6zqneq6z.png",
-    tags:        ["JavaScript", "Tailwind CSS"],
-    category:    "JavaScript",
-    liveUrl:     "https://texi-butger.vercel.app/",
-    githubUrl:   "https://github.com/MdShariyar56/Texi-Butger",
-    featured:    false,
+    title: "GameHub – Game Management System",
+    desc: "Modern game management platform where users can browse and manage their favorite games.",
+    image: "https://imglink.cc/cdn/lPtQlT6xYx.png",
+    tags: ["Next.js", "Tailwind CSS", "Firebase"],
+    category: "React",
+    liveUrl: "https://game-hub-auth-e87bc.web.app/",
+    githubUrl: "https://github.com/MdShariyar56/Game-Hub",
+    featured: true,
   },
   {
-    title:       "Floka Studio – Creative UI/UX & Web Development Agency Website",
-    desc:        "Floka Studio – A modern UI/UX and web development agency website showcasing creative projects, services, and portfolio with a clean, responsive design.",
-    image:       "https://i.ibb.co/p6f6QHNf/Screenshot-2026-06-17-135701.png",
-    tags:        ["React", "Tailwind CSS", "JavaScript"],
-    category:    "React",
-    liveUrl:     "https://floka-studio-five.vercel.app/",
-    githubUrl:   "https://github.com/MdShariyar56/Floka_Studio",
-    featured:    false,
+    title: "Taxi Kitchen – Digital Menu Web App",
+    desc: "Taxi Kitchen – A responsive food ordering web app with a dynamic menu, recipe suggestions, and YouTube video integration on click for each dish.",
+    image:
+      "https://i.ibb.co/4n8D3XdN/Gemini-Generated-Image-eq6zqneq6zqneq6z.png",
+    tags: ["JavaScript", "Tailwind CSS"],
+    category: "JavaScript",
+    liveUrl: "https://texi-butger.vercel.app/",
+    githubUrl: "https://github.com/MdShariyar56/Texi-Butger",
+    featured: false,
+  },
+  {
+    title: "Floka Studio – Creative UI/UX & Web Development Agency Website",
+    desc: "Floka Studio – A modern UI/UX and web development agency website showcasing creative projects, services, and portfolio with a clean, responsive design.",
+    image: "https://i.ibb.co/p6f6QHNf/Screenshot-2026-06-17-135701.png",
+    tags: ["React", "Tailwind CSS", "JavaScript"],
+    category: "React",
+    liveUrl: "https://floka-studio-five.vercel.app/",
+    githubUrl: "https://github.com/MdShariyar56/Floka_Studio",
+    featured: false,
   },
 ];
 
@@ -78,16 +95,16 @@ const Particles = () => {
   const dots = useMemo(
     () =>
       Array.from({ length: 18 }, (_, i) => ({
-        id:    i,
-        x:     `${Math.random() * 100}%`,
-        y:     `${Math.random() * 100}%`,
-        size:  Math.random() > 0.5 ? 2.5 : 1.5,
-        dur:   5 + Math.random() * 6,
+        id: i,
+        x: `${Math.random() * 100}%`,
+        y: `${Math.random() * 100}%`,
+        size: Math.random() > 0.5 ? 2.5 : 1.5,
+        dur: 5 + Math.random() * 6,
         delay: Math.random() * 5,
-        dx:    (Math.random() - 0.5) * 28,
-        dy:    (Math.random() - 0.5) * 28,
+        dx: (Math.random() - 0.5) * 28,
+        dy: (Math.random() - 0.5) * 28,
       })),
-    []
+    [],
   );
 
   return (
@@ -96,9 +113,24 @@ const Particles = () => {
         <motion.div
           key={d.id}
           className="absolute rounded-full"
-          style={{ width: d.size, height: d.size, left: d.x, top: d.y, background: "#0095FF" }}
-          animate={{ opacity: [0.06, 0.42, 0.06], x: [0, d.dx, 0], y: [0, d.dy, 0] }}
-          transition={{ duration: d.dur, delay: d.delay, repeat: Infinity, ease: "easeInOut" }}
+          style={{
+            width: d.size,
+            height: d.size,
+            left: d.x,
+            top: d.y,
+            background: "#0095FF",
+          }}
+          animate={{
+            opacity: [0.06, 0.42, 0.06],
+            x: [0, d.dx, 0],
+            y: [0, d.dy, 0],
+          }}
+          transition={{
+            duration: d.dur,
+            delay: d.delay,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
         />
       ))}
     </div>
@@ -109,7 +141,7 @@ const Particles = () => {
    PROJECT CARD
 ───────────────────────────────────────────── */
 const ProjectCard = ({ project, index }) => {
-  const angle       = useMotionValue(0);
+  const angle = useMotionValue(0);
   const borderStyle = useMotionTemplate`conic-gradient(from ${angle}deg,#0095FF 0%,#3b82f6 25%,#a78bfa 55%,#0095FF 80%)`;
 
   const onHoverStart = () => {
@@ -123,7 +155,11 @@ const ProjectCard = ({ project, index }) => {
       initial={{ opacity: 0, y: 36 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.12 }}
-      transition={{ duration: 0.6, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
+      transition={{
+        duration: 0.6,
+        delay: index * 0.08,
+        ease: [0.22, 1, 0.36, 1],
+      }}
       whileHover={{ y: -6 }}
       onHoverStart={onHoverStart}
       onHoverEnd={onHoverEnd}
@@ -141,7 +177,7 @@ const ProjectCard = ({ project, index }) => {
         className="relative z-10 flex flex-col h-full rounded-[22px] overflow-hidden"
         style={{
           background: "linear-gradient(145deg,#0a1628 0%,#071020 100%)",
-          boxShadow:  "0 8px 40px rgba(0,0,0,0.45)",
+          boxShadow: "0 8px 40px rgba(0,0,0,0.45)",
         }}
       >
         {/* image */}
@@ -158,14 +194,21 @@ const ProjectCard = ({ project, index }) => {
           {/* gradient overlay */}
           <div
             className="absolute inset-0"
-            style={{ background: "linear-gradient(to top,#0a1628 0%,rgba(7,16,32,0.3) 55%,transparent 100%)" }}
+            style={{
+              background:
+                "linear-gradient(to top,#0a1628 0%,rgba(7,16,32,0.3) 55%,transparent 100%)",
+            }}
           />
 
           {/* featured badge */}
           {project.featured && (
             <div
               className="absolute top-3 left-3 flex items-center gap-1.5 rounded-full px-3 py-1 text-[10px] font-bold uppercase tracking-widest"
-              style={{ background: "rgba(0,149,255,0.85)", color: "white", backdropFilter: "blur(6px)" }}
+              style={{
+                background: "rgba(0,149,255,0.85)",
+                color: "white",
+                backdropFilter: "blur(6px)",
+              }}
             >
               ⭐ Featured
             </div>
@@ -212,7 +255,6 @@ const ProjectCard = ({ project, index }) => {
 
         {/* content */}
         <div className="flex flex-col flex-1 p-5 gap-3">
-
           {/* title */}
           <h3
             className="font-extrabold text-white leading-tight transition-colors duration-300 group-hover:text-[#60a5fa]"
@@ -222,7 +264,10 @@ const ProjectCard = ({ project, index }) => {
           </h3>
 
           {/* description */}
-          <p className="text-xs leading-relaxed flex-1" style={{ color: "#4a6070" }}>
+          <p
+            className="text-xs leading-relaxed flex-1"
+            style={{ color: "#4a6070" }}
+          >
             {project.desc}
           </p>
 
@@ -233,7 +278,11 @@ const ProjectCard = ({ project, index }) => {
                 <span
                   key={tag}
                   className="text-[10px] font-semibold rounded-lg px-2 py-0.5"
-                  style={{ background: "rgba(0,149,255,0.1)", border: "1px solid rgba(0,149,255,0.2)", color: "#60a5fa" }}
+                  style={{
+                    background: "rgba(0,149,255,0.1)",
+                    border: "1px solid rgba(0,149,255,0.2)",
+                    color: "#60a5fa",
+                  }}
                 >
                   {tag}
                 </span>
@@ -263,7 +312,6 @@ const ProjectCard = ({ project, index }) => {
               </motion.a>
             </div>
           </div>
-
         </div>
       </div>
     </motion.div>
@@ -281,7 +329,7 @@ const Projects = () => {
       active === "All"
         ? projectsData
         : projectsData.filter((p) => p.category === active),
-    [active]
+    [active],
   );
 
   return (
@@ -297,15 +345,20 @@ const Projects = () => {
       <div
         className="pointer-events-none absolute inset-0"
         style={{
-          backgroundImage: "radial-gradient(circle, rgba(0,149,255,0.05) 1px, transparent 1px)",
-          backgroundSize:  "28px 28px",
+          backgroundImage:
+            "radial-gradient(circle, rgba(0,149,255,0.05) 1px, transparent 1px)",
+          backgroundSize: "28px 28px",
         }}
       />
 
       {/* Glow — left */}
       <motion.div
         className="pointer-events-none absolute -left-24 top-20 h-96 w-96 rounded-full"
-        style={{ background: "radial-gradient(circle,rgba(0,80,200,0.2) 0%,transparent 70%)", filter: "blur(60px)" }}
+        style={{
+          background:
+            "radial-gradient(circle,rgba(0,80,200,0.2) 0%,transparent 70%)",
+          filter: "blur(60px)",
+        }}
         animate={{ scale: [1, 1.1, 1], opacity: [0.3, 0.55, 0.3] }}
         transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
       />
@@ -313,20 +366,31 @@ const Projects = () => {
       {/* Glow — right */}
       <motion.div
         className="pointer-events-none absolute -right-20 bottom-10 h-80 w-80 rounded-full"
-        style={{ background: "radial-gradient(circle,rgba(100,50,200,0.14) 0%,transparent 70%)", filter: "blur(80px)" }}
+        style={{
+          background:
+            "radial-gradient(circle,rgba(100,50,200,0.14) 0%,transparent 70%)",
+          filter: "blur(80px)",
+        }}
         animate={{ scale: [1, 1.08, 1], opacity: [0.2, 0.42, 0.2] }}
-        transition={{ duration: 9, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+        transition={{
+          duration: 9,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay: 2,
+        }}
       />
 
       {/* Top accent line */}
       <div
         className="absolute inset-x-0 top-0 h-px pointer-events-none"
-        style={{ background: "linear-gradient(90deg,transparent 5%,rgba(0,149,255,0.55) 40%,rgba(139,92,246,0.4) 70%,transparent 95%)" }}
+        style={{
+          background:
+            "linear-gradient(90deg,transparent 5%,rgba(0,149,255,0.55) 40%,rgba(139,92,246,0.4) 70%,transparent 95%)",
+        }}
       />
 
       {/* ════ CONTENT ════ */}
       <div className="relative z-10 mx-auto w-full max-w-6xl">
-
         {/* ── Header ── */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
@@ -338,12 +402,23 @@ const Projects = () => {
           {/* badge */}
           <div
             className="mb-5 inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-[10px] font-extrabold uppercase tracking-[0.22em]"
-            style={{ background: "rgba(0,149,255,0.08)", border: "1px solid rgba(0,149,255,0.25)", color: "#0095FF" }}
+            style={{
+              background: "rgba(0,149,255,0.08)",
+              border: "1px solid rgba(0,149,255,0.25)",
+              color: "#0095FF",
+            }}
           >
             <motion.div
               className="h-1.5 w-1.5 rounded-full"
               style={{ background: "#0095FF" }}
-              animate={{ opacity: [1, 0.2, 1], boxShadow: ["0 0 4px #0095FF", "0 0 10px #0095FF", "0 0 4px #0095FF"] }}
+              animate={{
+                opacity: [1, 0.2, 1],
+                boxShadow: [
+                  "0 0 4px #0095FF",
+                  "0 0 10px #0095FF",
+                  "0 0 4px #0095FF",
+                ],
+              }}
               transition={{ duration: 1.6, repeat: Infinity }}
             />
             My Works
@@ -352,15 +427,20 @@ const Projects = () => {
           {/* heading */}
           <h2
             className="font-extrabold text-white"
-            style={{ fontSize: "clamp(36px, 5vw, 58px)", letterSpacing: "-0.03em", lineHeight: 1.08 }}
+            style={{
+              fontSize: "clamp(36px, 5vw, 58px)",
+              letterSpacing: "-0.03em",
+              lineHeight: 1.08,
+            }}
           >
             Featured{" "}
             <span
               style={{
-                background: "linear-gradient(135deg,#0095FF 0%,#60a5fa 50%,#a78bfa 100%)",
+                background:
+                  "linear-gradient(135deg,#0095FF 0%,#60a5fa 50%,#a78bfa 100%)",
                 WebkitBackgroundClip: "text",
-                WebkitTextFillColor:  "transparent",
-                backgroundClip:       "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
               }}
             >
               Projects
@@ -371,7 +451,8 @@ const Projects = () => {
           <motion.div
             className="mx-auto mt-5 h-px"
             style={{
-              background: "linear-gradient(90deg,transparent,rgba(0,149,255,0.4),rgba(139,92,246,0.3),transparent)",
+              background:
+                "linear-gradient(90deg,transparent,rgba(0,149,255,0.4),rgba(139,92,246,0.3),transparent)",
               maxWidth: 280,
             }}
             initial={{ scaleX: 0 }}
@@ -399,21 +480,32 @@ const Projects = () => {
                 whileTap={{ scale: 0.97 }}
                 className="relative flex items-center gap-2 rounded-full px-5 py-2 text-xs font-bold uppercase tracking-widest transition-all duration-300 overflow-hidden"
                 style={{
-                  background:   isActive ? "linear-gradient(135deg,#0095FF,#0055cc)" : "rgba(255,255,255,0.04)",
-                  border:       isActive ? "1px solid transparent" : "1px solid rgba(255,255,255,0.1)",
-                  color:        isActive ? "white" : "#4a6070",
-                  boxShadow:    isActive ? "0 4px 20px rgba(0,149,255,0.35)" : "none",
+                  background: isActive
+                    ? "linear-gradient(135deg,#0095FF,#0055cc)"
+                    : "rgba(255,255,255,0.04)",
+                  border: isActive
+                    ? "1px solid transparent"
+                    : "1px solid rgba(255,255,255,0.1)",
+                  color: isActive ? "white" : "#4a6070",
+                  boxShadow: isActive
+                    ? "0 4px 20px rgba(0,149,255,0.35)"
+                    : "none",
                 }}
               >
                 {isActive && (
                   <motion.span
                     className="pointer-events-none absolute inset-0"
                     style={{
-                      background: "linear-gradient(105deg,transparent 35%,rgba(255,255,255,0.18) 50%,transparent 65%)",
+                      background:
+                        "linear-gradient(105deg,transparent 35%,rgba(255,255,255,0.18) 50%,transparent 65%)",
                       backgroundSize: "200% 100%",
                     }}
                     animate={{ backgroundPosition: ["200% 0%", "-200% 0%"] }}
-                    transition={{ duration: 2.5, repeat: Infinity, ease: "linear" }}
+                    transition={{
+                      duration: 2.5,
+                      repeat: Infinity,
+                      ease: "linear",
+                    }}
                   />
                 )}
                 {filter === "All" && <Layers size={12} />}
@@ -462,17 +554,17 @@ const Projects = () => {
             rel="noopener noreferrer"
             className="flex items-center gap-2.5 rounded-2xl px-8 py-3.5 text-sm font-bold"
             style={{
-              background:  "rgba(255,255,255,0.04)",
-              border:      "1px solid rgba(255,255,255,0.1)",
-              color:       "rgba(255,255,255,0.65)",
+              background: "rgba(255,255,255,0.04)",
+              border: "1px solid rgba(255,255,255,0.1)",
+              color: "rgba(255,255,255,0.65)",
               textDecoration: "none",
             }}
             whileHover={{
-              scale:       1.04,
-              y:           -2,
+              scale: 1.04,
+              y: -2,
               borderColor: "rgba(0,149,255,0.5)",
-              color:       "white",
-              boxShadow:   "0 6px 24px rgba(0,0,0,0.3)",
+              color: "white",
+              boxShadow: "0 6px 24px rgba(0,0,0,0.3)",
             }}
             whileTap={{ scale: 0.97 }}
           >
@@ -481,7 +573,6 @@ const Projects = () => {
             <ExternalLink size={14} />
           </motion.a>
         </motion.div>
-
       </div>
     </section>
   );
