@@ -28,7 +28,7 @@ const projectsData = [
     desc: "Modern Islamic platform for Quran, Hadith, duas, and prayer times.",
     image: "https://imglink.cc/cdn/6QlSUZagUD.png",
     tags: ["Next.js", "React", "Tailwind CSS", "Firebase"],
-    category: "Next.js",
+    category: "Next.Js",
     liveUrl: "https://noorpath-ten.vercel.app/",
     githubUrl: "https://github.com/MdShariyar56/Noorpath",
     featured: false,
@@ -86,7 +86,7 @@ const projectsData = [
   },
 ];
 
-const FILTERS = ["All", "React", "JavaScript"];
+const FILTERS = ["All", "React","Next.Js", "JavaScript"];
 
 /* ─────────────────────────────────────────────
    PARTICLES
